@@ -235,19 +235,25 @@ button {
 }
 
 .eyebrow {
-  display: inline-block;
+  display: block;
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 1.22rem;
   font-weight: 700;
   color: var(--orange-500);
-  margin: 0 0 0.8rem;
-  margin-left: 6rem;
+  margin: 0 auto 0.8rem;
+  text-align: center;
+}
+
+.sidebar__brand .eyebrow {
+  display: inline-block;
+  text-align: left;
+  margin-left: 0;
 }
 
 .eyebrow--light {
   color: var(--cream-100);
-  text-align:center;
+  text-align: center;
 }
 
 .hero {
@@ -1001,81 +1007,26 @@ label textarea::placeholder {
   }
 
   .sidebar__toggle {
-    left: 1.4rem;
+    left: 1.2rem;
   }
 
-  .sidebar.is-collapsed + .sidebar__toggle {
-    left: 1.4rem;
+  .sidebar.is-collapsed {
+    transform: translateX(-100%);
   }
 
-  .sidebar__nav {
-    margin-top: 1rem;
+  .sidebar.is-collapsed ~ #content {
+    margin-left: 0;
   }
 
   #content {
     margin-left: 0;
-    padding-top: 5.5rem;
   }
 
-  .statement-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Dim the page behind the drawer on small screens; tapping it closes the menu */
-.sidebar-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 19, 12, 0.4);
-  backdrop-filter: blur(2px);
-  z-index: 35;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-@media (max-width: 900px) {
-  body.sidebar-open .sidebar-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-@media (max-width: 640px) {
-  .container {
-    width: min(100% - 1.5rem, 1120px);
+  .modal {
+    padding: 1rem;
   }
 
-  .hero {
-    padding: 1.2rem;
-  }
-
-  .section {
-    padding: 4.2rem 0;
-  }
-
-  .sidebar {
-    padding: 1rem 1rem 1.25rem;
-  }
-
-  .estate-layout__media img,
-  .people-layout__image img,
-  .sustainability-block__image img {
-    min-height: 300px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  .modal__panel {
+    width: min(100%, calc(100% - 2rem));
   }
 }
