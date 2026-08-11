@@ -247,6 +247,7 @@ button {
 
 .eyebrow--light {
   color: var(--cream-100);
+  text-align:center;
 }
 
 .hero {
