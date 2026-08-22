@@ -5,23 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Cape Town Farm is a premium, fictional agricultural estate demonstration website featuring sustainability, heritage, people, and wine storytelling."
+      content="Cape Town Farm is an enterprise agricultural estate prototype celebrating South African heritage, sustainable viticulture, citrus orchards, ethical livestock, and innovative human capital."
     />
-    <title>Cape Town Farm</title>
+    <title>Cape Town Farm — Agricultural Estate & Enterprise Platform</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <a class="skip-link" href="#content">Skip to content</a>
+    <a class="skip-link" href="#content">Skip to main content</a>
 
-    <aside class="sidebar" id="sidebar" aria-label="Primary">
+    <!-- GLOBAL ARCHITECTURAL SIDEBAR NAVIGATION -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary Navigation">
       <div class="sidebar__brand">
-        <p class="eyebrow">Cape Town Farm</p>
-        <br>
-        <br>
-        <h1>Estate & Agriculture</h1>
+        <div class="brand-crest">CTF</div>
+        <div>
+          <p class="eyebrow">Cape Town Farm</p>
+          <h2>Estate & Agriculture</h2>
+        </div>
       </div>
 
-      <nav class="sidebar__nav" id="sidebarNav">
+      <!-- PORTAL SWITCHER SELECTOR -->
+      <div class="sidebar__portal-switcher">
+        <span class="switcher-label">System Environment</span>
+        <div class="portal-pills" role="tablist">
+          <button class="portal-pill active" data-portal-target="public" role="tab" aria-selected="true">
+            <span>🏛️</span> Public Estate
+          </button>
+          <button class="portal-pill" data-portal-target="hr" role="tab" aria-selected="false">
+            <span>👥</span> HR Recruitment
+          </button>
+          <button class="portal-pill" data-portal-target="operations" role="tab" aria-selected="false">
+            <span>⚙️</span> Operations
+          </button>
+        </div>
+      </div>
+
+      <!-- PUBLIC NAVIGATION LINKS -->
+      <nav class="sidebar__nav" id="publicNavGroup" aria-label="Public Estate Navigation">
         <a href="#home" class="nav-link active">Home</a>
         <a href="#farm" class="nav-link">Our Farm</a>
         <a href="#produce" class="nav-link">What We Produce</a>
@@ -32,421 +51,1130 @@
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
+      <!-- HR RECRUITMENT NAVIGATION LINKS -->
+      <nav class="sidebar__nav" id="hrNavGroup" style="display: none;" aria-label="HR System Navigation">
+        <button class="nav-link hr-subnav-btn active" data-tab="pipeline">📋 Candidate Pipeline</button>
+        <button class="nav-link hr-subnav-btn" data-tab="table">📊 Applicant Table</button>
+        <button class="nav-link hr-subnav-btn" data-tab="jobs">💼 Job Requisitions</button>
+        <a href="#careers" class="nav-link" data-portal-target="public">↗ View Public Careers</a>
+      </nav>
+
+      <!-- OPERATIONS NAVIGATION LINKS -->
+      <nav class="sidebar__nav" id="opsNavGroup" style="display: none;" aria-label="Operations Governance Navigation">
+        <a href="#opsPendingList" class="nav-link active">⏳ Requisitions for Review</a>
+        <a href="#opsApprovedList" class="nav-link">✓ Approved & Active Jobs</a>
+        <a href="#content" class="nav-link" data-portal-target="public">↗ View Public Website</a>
+      </nav>
+
+      <!-- SIDEBAR FOOTER ACTIONS -->
       <div class="sidebar__footer">
-        <p>Demonstration site</p>
+        <button type="button" class="email-center-trigger btn-open-email-center">
+          <span>📨 Simulated Email Center</span>
+          <span class="badge-counter" id="simulatedEmailBadge" style="display:none;">0</span>
+        </button>
+        <div class="demo-tag">
+          <p>Enterprise Agricultural Prototype</p>
+          <span class="system-status">● Live Demo System</span>
+        </div>
       </div>
     </aside>
 
-    <button class="sidebar__toggle" id="sidebarToggle" aria-expanded="true" aria-controls="sidebarNav">
+    <!-- MOBILE NAVIGATION TOGGLE BUTTON -->
+    <button class="sidebar__toggle" id="sidebarToggle" aria-expanded="true" aria-controls="sidebar">
       <span></span>
       <span></span>
       <span></span>
-      <span class="sr-only">Toggle navigation</span>
+      <span class="sr-only">Toggle Navigation Drawer</span>
     </button>
 
     <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
 
+    <!-- MAIN CONTENT CONTAINER -->
     <main id="content">
-      <section class="hero" id="home">
-        <div class="hero__overlay"></div>
-        <div class="hero__content reveal">
-          <p class="eyebrow eyebrow--light">Cape Town Farm</p>
-          <h1>Growing with the land. Creating for generations.</h1>
-          <p class="hero__lead">
-            A heritage-led agricultural estate shaped by quality, care, and long-term opportunity.
-          </p>
-          <div class="hero__actions">
-            <a class="button button--primary" href="#farm">Explore the Farm</a>
-          </div>
-        </div>
-        <a class="scroll-indicator" href="#mission" aria-label="Scroll to next section">
-          <span></span>
-        </a>
-      </section>
-
-      <section class="section section--intro" id="mission">
-        <div class="container reveal">
-          <div class="section-heading">
-            <p class="eyebrow">Our Manifesto</p>
-            <h2>We grow possibilities as thoughtfully as we grow produce.</h2>
-            <p class="signature-line">Our land, our people, our future.</p>
-          </div>
-          <div class="statement-grid">
-            <article>
-              <h3>Sustainable Farming</h3>
-              <p>
-                We tend the land with care, protecting soil, water, biodiversity, and the systems that sustain future harvests.
-              </p>
-            </article>
-            <article>
-              <h3>Good Quality Products</h3>
-              <p>
-                From vineyards to orchards and livestock, our work is shaped by detail, patience, and an uncompromising standard.
-              </p>
-            </article>
-            <article>
-              <h3>Opportunity Creation</h3>
-              <p>
-                Our estate is a place where skills grow, careers take root, and surrounding communities are meaningfully supported.
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--estate" id="farm">
-        <div class="container reveal">
-          <div class="estate-layout">
-            <div class="estate-layout__media">
-              <img src="Img-Assets/Tractor Driver.jpg" alt="A farm worker operating machinery across the estate landscape" loading="lazy" />
-            </div>
-            <div class="estate-layout__content">
-              <p class="eyebrow">The Estate</p>
-              <h2>Distinctive agriculture, rooted in place.</h2>
-              <p>
-                Cape Town Farm is imagined as a diverse estate where heritage farming, modern stewardship, and human care meet in one living landscape.
-              </p>
-              <p>
-                Here, vineyards, orchards, livestock, and cultivated fields work in dialogue with the natural environment rather than against it.
-              </p>
-              <div class="stat-list">
-                <div>
-                  <strong>5+ Divisions</strong>
-                  <span>Across produce, livestock, wine, and land stewardship.</span>
-                </div>
-                <div>
-                  <strong>100% Care</strong>
-                  <span>A quality-first approach shaped by patience and long-term thinking.</span>
-                </div>
-                <div>
-                  <strong>People First</strong>
-                  <span>Every harvest is supported by capable hands and growing futures.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--gallery" id="produce">
-        <div class="container reveal">
-          <div class="section-heading section-heading--wide">
-            <p class="eyebrow">What We Produce</p>
-            <h2>From vineyard rows to citrus groves, each harvest tells a story.</h2>
-          </div>
-          <div class="produce-grid">
-            <article class="produce-card">
-              <img src="Img-Assets/Wine-Grapes.jpg" alt="Close-up of grapes ready for harvest" loading="lazy" />
-              <div class="produce-card__body">
-                <h3>Grapes</h3>
-                <p>Vineyards shaped by the land and the rhythms of the season.</p>
-              </div>
-            </article>
-            <article class="produce-card">
-              <img src="Img-Assets/Orange Trees.jpg" alt="Rows of orange trees under a bright sky" loading="lazy" />
-              <div class="produce-card__body">
-                <h3>Oranges</h3>
-                <p>Sunlit citrus grown with care for freshness, flavour, and balance.</p>
-              </div>
-            </article>
-            <article class="produce-card">
-              <img src="Img-Assets/Cows.jpg" alt="Cattle grazing on the farm" loading="lazy" />
-              <div class="produce-card__body">
-                <h3>Cattle</h3>
-                <p>Livestock integrated into a wider, thoughtfully managed agricultural system.</p>
-              </div>
-            </article>
-            <article class="produce-card">
-              <img src="Img-Assets/Cows 2.jpg" alt="Open farm landscape with grazing animals" loading="lazy" />
-              <div class="produce-card__body">
-                <h3>Crops</h3>
-                <p>A broad mix of cultivated land supporting both food and soil resilience.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--wine" id="wine">
-        <div class="container reveal">
-          <div class="wine-story">
-            <div class="wine-story__copy">
-              <p class="eyebrow">Wine</p>
-              <h2>From vine to bottle, the estate speaks in quiet luxury.</h2>
-              <p>
-                Wine is the refined expression of the farm's vineyard heritage, shaped by patience, craftsmanship, and a deep belief in land stewardship.
-              </p>
-              <div class="journey">
-                <span>Land</span>
-                <span>Vine</span>
-                <span>Harvest</span>
-                <span>Craft</span>
-                <span>Bottle</span>
-              </div>
-            </div>
-            <div class="wine-story__media">
-              <img src="Img-Assets/Wine-Bottles.jpg" alt="A premium set of wine bottles arranged in a refined presentation" loading="lazy" />
-              <img src="Img-Assets/Wine-Cellar.jpg" alt="A cellar with wine storage and a warm, atmospheric interior" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--sustainability" id="sustainability">
-        <div class="container reveal">
-          <div class="sustainability-block">
-            <div class="sustainability-block__copy">
-              <p class="eyebrow">Sustainability</p>
-              <h2>Our approach begins with one principle: the land must remain productive for generations to come.</h2>
-              <p>
-                Responsible land management, careful water use, long-term planning, biodiversity, and thoughtful livestock stewardship all shape the way we work.
-              </p>
-              <ul>
-                <li>Soil health and regeneration</li>
-                <li>Water-conscious farming</li>
-                <li>Low-waste production</li>
-                <li>Responsible stewardship of people and place</li>
-              </ul>
-            </div>
-            <div class="sustainability-block__image">
-              <img src="Img-Assets/Orange Trees.jpg" alt="Orange trees forming a natural agricultural landscape" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--people" id="people">
-        <div class="container reveal">
-          <div class="people-layout">
-            <div class="people-layout__image">
-              <img src="Img-Assets/Workers.jpg" alt="Farm workers gathered together in a dignified community setting" loading="lazy" />
-            </div>
-            <div class="people-layout__copy">
-              <p class="eyebrow">People</p>
-              <h2>People make the farm.</h2>
-              <p>
-                Agriculture is built by skilled hands, patient minds, and a shared commitment to care. Cape Town Farm is as much about human opportunity as it is about growth.
-              </p>
-              <p>
-                We imagine a future where employment, training, and community development remain central to daily life on the estate.
-              </p>
-              <div class="pill-list">
-                <span>Employment</span>
-                <span>Skills</span>
-                <span>Community</span>
-                <span>Opportunity</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--careers" id="careers">
-        <div class="container reveal">
-          <div class="section-heading section-heading--wide">
-            <p class="eyebrow">Careers</p>
-            <h2>Explore opportunities across the estate.</h2>
-            <p class="section-heading__text">
-              These listings are illustrative demonstration content for a premium farm recruitment experience.
+      
+      <!-- ================================================================= -->
+      <!-- PUBLIC WEBSITE VIEW -->
+      <!-- ================================================================= -->
+      <div id="publicWebsiteView" class="view-portal active">
+        
+        <!-- HERO SECTION -->
+        <section class="hero" id="home">
+          <div class="hero__overlay"></div>
+          <div class="hero__content reveal">
+            <p class="eyebrow eyebrow--light">Cape Town Farm · Western Cape</p>
+            <h1>Growing with the land. Creating for generations.</h1>
+            <p class="hero__lead">
+              A heritage-led agricultural estate shaped by regenerative farming, world-class viticulture, sustainable citrus orchards, and multi-generational human opportunity.
             </p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="#farm">Explore the Estate</a>
+              <a class="button button--secondary" href="#careers">Explore Careers</a>
+            </div>
           </div>
-          <div class="filters" role="group" aria-label="Filter vacancies">
-            <button class="filter-chip active" data-filter="all">All</button>
-            <button class="filter-chip" data-filter="operations">Operations</button>
-            <button class="filter-chip" data-filter="vineyard">Vineyard</button>
-            <button class="filter-chip" data-filter="citrus">Citrus</button>
-            <button class="filter-chip" data-filter="livestock">Livestock</button>
-            <button class="filter-chip" data-filter="technical">Technical</button>
-            <button class="filter-chip" data-filter="administration">Administration</button>
-          </div>
-          <div class="vacancy-grid">
-            <article class="vacancy-card" data-category="operations">
-              <div class="vacancy-card__head">
-                <h3>Farm Operations Assistant</h3>
-                <span>Operations</span>
-              </div>
-              <p>Support daily estate tasks and help maintain high standards across the working farm.</p>
-              <ul>
-                <li>Location: [Farm Location]</li>
-                <li>Type: Full-time</li>
-                <li>Requirements: Practical mindset, reliability, physical readiness.</li>
-              </ul>
-              <button class="button button--small apply-btn" data-position="Farm Operations Assistant">Apply</button>
-            </article>
-            <article class="vacancy-card" data-category="vineyard">
-              <div class="vacancy-card__head">
-                <h3>Vineyard Worker</h3>
-                <span>Vineyard</span>
-              </div>
-              <p>Contribute to vineyard care, seasonal production support, and field quality standards.</p>
-              <ul>
-                <li>Location: [Farm Location]</li>
-                <li>Type: Seasonal</li>
-                <li>Requirements: Agricultural interest, teamwork, attention to detail.</li>
-              </ul>
-              <button class="button button--small apply-btn" data-position="Vineyard Worker">Apply</button>
-            </article>
-            <article class="vacancy-card" data-category="citrus">
-              <div class="vacancy-card__head">
-                <h3>Citrus Farm Worker</h3>
-                <span>Citrus</span>
-              </div>
-              <p>Help care for orchard production and the careful handling of citrus harvests.</p>
-              <ul>
-                <li>Location: [Farm Location]</li>
-                <li>Type: Full-time</li>
-                <li>Requirements: Outdoor work readiness, strong work ethic.</li>
-              </ul>
-              <button class="button button--small apply-btn" data-position="Citrus Farm Worker">Apply</button>
-            </article>
-            <article class="vacancy-card" data-category="livestock">
-              <div class="vacancy-card__head">
-                <h3>Livestock Assistant</h3>
-                <span>Livestock</span>
-              </div>
-              <p>Assist daily animal care and support the broader livestock operations on the estate.</p>
-              <ul>
-                <li>Location: [Farm Location]</li>
-                <li>Type: Full-time</li>
-                <li>Requirements: Careful handling, calm approach, practical communication.</li>
-              </ul>
-              <button class="button button--small apply-btn" data-position="Livestock Assistant">Apply</button>
-            </article>
-            <article class="vacancy-card" data-category="technical">
-              <div class="vacancy-card__head">
-                <h3>Agricultural Equipment Technician</h3>
-                <span>Technical</span>
-              </div>
-              <p>Play a hands-on role in supporting the machinery and operational equipment across the estate.</p>
-              <ul>
-                <li>Location: [Farm Location]</li>
-                <li>Type: Full-time</li>
-                <li>Requirements: Mechanical ability and practical troubleshooting skills.</li>
-              </ul>
-              <button class="button button--small apply-btn" data-position="Agricultural Equipment Technician">Apply</button>
-            </article>
-            <article class="vacancy-card" data-category="administration">
-              <div class="vacancy-card__head">
-                <h3>Farm Administration Assistant</h3>
-                <span>Administration</span>
-              </div>
-              <p>Support recruitment, scheduling, and day-to-day coordination in a busy rural business environment.</p>
-              <ul>
-                <li>Location: [Farm Location]</li>
-                <li>Type: Full-time</li>
-                <li>Requirements: Organised, dependable, strong communication skills.</li>
-              </ul>
-              <button class="button button--small apply-btn" data-position="Farm Administration Assistant">Apply</button>
-            </article>
-          </div>
-        </div>
-      </section>
+          <a class="scroll-indicator" href="#mission" aria-label="Scroll to next section">
+            <span></span>
+          </a>
+        </section>
 
-      <section class="section section--contact" id="contact">
-        <div class="container reveal">
-          <div class="contact-layout">
-            <div class="contact-card">
-              <p class="eyebrow">Visit &amp; Enquire</p>
-              <h2>We welcome conversations about the estate, its produce, and future opportunities.</h2>
-              <ul class="contact-list">
-                <li><strong>Location:</strong> [Farm Location]</li>
-                <li><strong>Phone:</strong> [Contact Number]</li>
-                <li><strong>Email:</strong> [Contact Email]</li>
-                <li><strong>Hours:</strong> [Business Hours]</li>
-              </ul>
-              <a class="button button--primary" href="mailto:[Contact Email]">General Enquiry</a>
+        <!-- MANIFESTO & PHILOSOPHY -->
+        <section class="section section--intro" id="mission">
+          <div class="container reveal">
+            <div class="section-heading">
+              <p class="eyebrow">Our Manifesto</p>
+              <h2>We grow possibilities as thoughtfully as we grow produce.</h2>
+              <p class="signature-line">Our land, our people, our future.</p>
             </div>
-            <div class="contact-card contact-card--map">
-              <div class="map-placeholder">
-                <p>Estate Map Placeholder</p>
+            <div class="statement-grid">
+              <article>
+                <div class="card-icon">🌿</div>
+                <h3>Regenerative Farming</h3>
+                <p>
+                  We nurture the soil, protect natural watersheds, and foster biodiversity corridors across our 450-hectare estate to ensure resilient harvests for future generations.
+                </p>
+              </article>
+              <article>
+                <div class="card-icon">🍇</div>
+                <h3>Artisanal Standards</h3>
+                <p>
+                  From dryland bush-vine grapes to export-grade citrus and pasture-raised herds, every harvest is governed by patience, craftsmanship, and uncompromising quality.
+                </p>
+              </article>
+              <article>
+                <div class="card-icon">🤝</div>
+                <h3>Human Dignity & Skills</h3>
+                <p>
+                  Our agricultural enterprise is built on continuous adult education, technical apprenticeships, fair living wages, and multi-generational community empowerment.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- OUR FARM SECTION -->
+        <section class="section section--estate" id="farm">
+          <div class="container reveal">
+            <div class="estate-layout">
+              <div class="estate-layout__media">
+                <img src="Img-Assets/Tractor Driver.jpg" alt="Agricultural machinery operator working the Cape Town Farm estate landscape" loading="lazy" />
+                <div class="image-caption-badge">Precision Agriculture & Field Stewardship</div>
+              </div>
+              <div class="estate-layout__content">
+                <p class="eyebrow">The Estate</p>
+                <h2>Distinctive agriculture, rooted in Cape terroir.</h2>
+                <p>
+                  Cape Town Farm is an integrated agricultural estate where centuries-old farming heritage, modern soil telemetry, and compassionate stewardship converge in one living landscape.
+                </p>
+                <p>
+                  Sheltered by granite mountain slopes and cooled by south-westerly Atlantic breezes, our microclimates allow vineyards, sunlit citrus orchards, multi-species pastures, and grain rotations to thrive in biological harmony.
+                </p>
+                <div class="stat-list">
+                  <div>
+                    <strong>450+ Hectares</strong>
+                    <span>Encompassing vineyards, orchards, rotational pastures, and indigenous fynbos reserves.</span>
+                  </div>
+                  <div>
+                    <strong>100% Water Stewardship</strong>
+                    <span>Automated soil moisture probes, drip micro-irrigation, and closed-loop dam networks.</span>
+                  </div>
+                  <div>
+                    <strong>People-Centric Enterprise</strong>
+                    <span>Over 120 permanent agricultural artisans, technicians, and operational specialists.</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </section>
+
+        <!-- WHAT WE PRODUCE SECTION -->
+        <section class="section section--gallery" id="produce">
+          <div class="container reveal">
+            <div class="section-heading section-heading--wide">
+              <p class="eyebrow">What We Produce</p>
+              <h2>From vineyard rows to citrus groves, each harvest tells a story of care.</h2>
+              <p class="section-heading__text">
+                Our diversified agricultural operations balance high-value export produce with regenerative land restoration.
+              </p>
+            </div>
+            <div class="produce-grid">
+              <article class="produce-card">
+                <div class="produce-card__img-wrap">
+                  <img src="Img-Assets/Wine-Grapes.jpg" alt="Wine grapes on the vine during harvest season" loading="lazy" />
+                  <span class="produce-tag">Viticulture</span>
+                </div>
+                <div class="produce-card__body">
+                  <h3>Heritage Wine Grapes</h3>
+                  <p>85 hectares of Shiraz, Cabernet Sauvignon, Pinotage, and Old Vine Chenin Blanc cultivated on decomposed granite soils.</p>
+                  <div class="produce-meta">
+                    <span>🍇 5 Core Cultivars</span>
+                    <span>🗓 Harvest: Jan – March</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="produce-card">
+                <div class="produce-card__img-wrap">
+                  <img src="Img-Assets/Orange Trees.jpg" alt="Sunlit orange orchard under clear blue skies" loading="lazy" />
+                  <span class="produce-tag">Citrus Groves</span>
+                </div>
+                <div class="produce-card__body">
+                  <h3>Sunlit Citrus Orchards</h3>
+                  <p>Export-grade Valencias, Navels, and Clementines grown with integrated biological pest management and precision drip lines.</p>
+                  <div class="produce-meta">
+                    <span>🍊 Export Grade 1 & Local</span>
+                    <span>🌍 GlobalG.A.P. Certified</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="produce-card">
+                <div class="produce-card__img-wrap">
+                  <img src="Img-Assets/Cows.jpg" alt="Pasture-raised cattle grazing in open green fields" loading="lazy" />
+                  <span class="produce-tag">Pasture Management</span>
+                </div>
+                <div class="produce-card__body">
+                  <h3>Grass-Fed Livestock</h3>
+                  <p>Ethically managed herd grazing in rotational multi-species paddocks, naturally restoring soil carbon and microbiology.</p>
+                  <div class="produce-meta">
+                    <span>🐄 100% Grass-Fed</span>
+                    <span>🌱 Rotational Mob Grazing</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="produce-card">
+                <div class="produce-card__img-wrap">
+                  <img src="Img-Assets/Cows 2.jpg" alt="Open agricultural field with cover crops and natural landscape" loading="lazy" />
+                  <span class="produce-tag">Resilient Crops</span>
+                </div>
+                <div class="produce-card__body">
+                  <h3>Field & Cover Crops</h3>
+                  <p>Rotational barley, oats, and nitrogen-fixing legumes that enrich soil biomass and prevent erosion across hillside slopes.</p>
+                  <div class="produce-meta">
+                    <span>🌾 Zero-Till Rotation</span>
+                    <span>🛡️ Soil Carbon Regeneration</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- WINE SECTION -->
+        <section class="section section--wine" id="wine">
+          <div class="container reveal">
+            <div class="wine-story">
+              <div class="wine-story__copy">
+                <p class="eyebrow">Wine & Oenology</p>
+                <h2>From vine to bottle, the estate speaks in quiet luxury.</h2>
+                <p>
+                  Wine is the refined expression of our estate's deep relationship with Cape terroir. Guided by low-intervention winemaking, our cellar master translates granitic soils, mountain elevation, and Atlantic sea breezes into structured, age-worthy vintages.
+                </p>
+                <div class="journey">
+                  <span>1. Terroir</span>
+                  <span>2. Bush Vines</span>
+                  <span>3. Dawn Harvest</span>
+                  <span>4. Wild Ferment</span>
+                  <span>5. French Oak</span>
+                  <span>6. Bottle Age</span>
+                </div>
+
+                <div class="wine-featured-list">
+                  <div class="wine-item-pill">
+                    <strong>Estate Reserve Cabernet Sauvignon</strong>
+                    <span>Deep cassis, cedar box, and crushed mountain fynbos (20 Months French Oak).</span>
+                  </div>
+                  <div class="wine-item-pill">
+                    <strong>Old Vine Chenin Blanc</strong>
+                    <span>Wild fermented from 1982 bush vines; white peach, brioche, and vibrant minerality.</span>
+                  </div>
+                  <div class="wine-item-pill">
+                    <strong>Heritage Shiraz</strong>
+                    <span>Savoury dark berries, cracked pepper, smoked charcuterie, and fine-grained tannins.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="wine-story__media">
+                <img src="Img-Assets/Wine-Bottles.jpg" alt="Cape Town Farm handcrafted reserve wine bottles" loading="lazy" />
+                <img src="Img-Assets/Wine-Cellar.jpg" alt="Atmospheric oak barrel maturation room in the estate cellar" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUSTAINABILITY SECTION -->
+        <section class="section section--sustainability" id="sustainability">
+          <div class="container reveal">
+            <div class="sustainability-block">
+              <div class="sustainability-block__copy">
+                <p class="eyebrow">Sustainability & ESG</p>
+                <h2>Our covenant with the land: leave every hectare richer than we found it.</h2>
+                <p>
+                  At Cape Town Farm, sustainability is not marketing; it is our operational foundation. We combine traditional ecological knowledge with real-time digital environmental monitoring to protect soil, water, and wildlife.
+                </p>
+                <div class="sustainability-grid-features">
+                  <div class="sust-feature">
+                    <strong>💧 Water Stewardship</strong>
+                    <p>450kW solar telemetry probes schedule drip irrigation at night, reducing water consumption by 38%.</p>
+                  </div>
+                  <div class="sust-feature">
+                    <strong>☀️ Solar Microgrid</strong>
+                    <p>The entire winery, packhouse, and workshop operate on a 450kW grid-tied solar photovoltaic array.</p>
+                  </div>
+                  <div class="sust-feature">
+                    <strong>🦉 Biological Pest Control</strong>
+                    <p>Installed raptor perches and bat roosts maintain natural biological control over vineyard and orchard pests.</p>
+                  </div>
+                  <div class="sust-feature">
+                    <strong>♻️ Zero Organic Waste</strong>
+                    <p>All grape pomace, citrus prunings, and livestock manure are composted into organic soil amendment.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="sustainability-block__image">
+                <img src="Img-Assets/Orange Trees.jpg" alt="Citrus orchard with sustainable cover crop ground cover" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- OUR PEOPLE SECTION -->
+        <section class="section section--people" id="people">
+          <div class="container reveal">
+            <div class="people-layout">
+              <div class="people-layout__image">
+                <img src="Img-Assets/Workers.jpg" alt="Dedicated Cape Town Farm team members gathered together in an agricultural setting" loading="lazy" />
+                <div class="image-caption-badge">The Custodians of Cape Town Farm</div>
+              </div>
+              <div class="people-layout__copy">
+                <p class="eyebrow">People & Community</p>
+                <h2>People make the farm.</h2>
+                <p>
+                  Agriculture is built by skilled hands, disciplined minds, and a shared dedication to excellence. Cape Town Farm invests heavily in human opportunity, technical literacy, and community well-being.
+                </p>
+                <p>
+                  From our viticultural operators and tractor mechanics to our winemakers and administrative coordinators, our people are equal partners in our generational journey.
+                </p>
+                <div class="pill-list">
+                  <span>Fair Living Wages</span>
+                  <span>Skills Apprenticeships</span>
+                  <span>Adult Literacy</span>
+                  <span>Community Creche Support</span>
+                  <span>On-Site Healthcare</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CAREERS PUBLIC SECTION -->
+        <section class="section section--careers" id="careers">
+          <div class="container reveal">
+            <div class="section-heading section-heading--wide">
+              <div class="careers-header-flex">
+                <div>
+                  <p class="eyebrow">Careers & Talent</p>
+                  <h2>Join our estate team. Build a generational career.</h2>
+                  <p class="section-heading__text">
+                    Browse open positions across operations, viticulture, citrus orchards, livestock, technical engineering, and administration. No account creation required.
+                  </p>
+                </div>
+                <div class="careers-header-badge">
+                  <span>🚀 Direct Applications</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SEARCH AND FILTERS -->
+            <div class="careers-filter-bar">
+              <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="jobSearchInput" placeholder="Search vacancies by title, keyword, or skill..." aria-label="Search vacancies" />
+              </div>
+
+              <div class="filters" id="careerFilters" role="group" aria-label="Filter vacancies by department">
+                <button class="filter-chip active" data-filter="all">All Departments</button>
+                <button class="filter-chip" data-filter="operations">Operations</button>
+                <button class="filter-chip" data-filter="vineyard">Vineyard</button>
+                <button class="filter-chip" data-filter="citrus">Citrus</button>
+                <button class="filter-chip" data-filter="livestock">Livestock</button>
+                <button class="filter-chip" data-filter="technical & maintenance">Technical & Maintenance</button>
+                <button class="filter-chip" data-filter="administration & finance">Administration</button>
+                <button class="filter-chip" data-filter="hospitality & cellar">Hospitality & Cellar</button>
+              </div>
+            </div>
+
+            <!-- VACANCY GRID (DYNAMICALLY RENDERED BY JS) -->
+            <div class="vacancy-grid" id="publicVacancyGrid">
+              <!-- Dynamically populated by js/careers.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="section section--contact" id="contact">
+          <div class="container reveal">
+            <div class="contact-layout">
+              <div class="contact-card">
+                <p class="eyebrow">Visit & Enquire</p>
+                <h2>We welcome conversations about our produce, cellar, and partnerships.</h2>
+                <ul class="contact-list">
+                  <li><strong>Estate Address:</strong> [Estate Location], Western Cape, South Africa</li>
+                  <li><strong>General Enquiries:</strong> [info@capetownfarm.co.za]</li>
+                  <li><strong>Trade & Export Desk:</strong> [export@capetownfarm.co.za]</li>
+                  <li><strong>Human Resources:</strong> [recruitment@capetownfarm.co.za]</li>
+                  <li><strong>Estate Operating Hours:</strong> Mon – Fri: 07:30 – 17:00 · Sat: 08:00 – 13:00</li>
+                </ul>
+
+                <form id="estateContactForm" class="estate-form" novalidate>
+                  <div class="form-grid-2">
+                    <div class="form-group">
+                      <label for="contactName" class="form-label">Your Name *</label>
+                      <input type="text" id="contactName" name="name" class="form-input" required placeholder="Full Name" />
+                    </div>
+                    <div class="form-group">
+                      <label for="contactEmail" class="form-label">Email Address *</label>
+                      <input type="email" id="contactEmail" name="email" class="form-input" required placeholder="email@domain.com" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="contactDepartment" class="form-label">Enquiry Department</label>
+                    <select id="contactDepartment" name="department" class="form-input">
+                      <option value="General">General Estate Information</option>
+                      <option value="Wine">Wine Cellar & Tasting Bookings</option>
+                      <option value="Produce">Citrus & Produce Wholesale</option>
+                      <option value="Careers">Careers & Recruitment Enquiry</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="contactMessage" class="form-label">Message *</label>
+                    <textarea id="contactMessage" name="message" class="form-input" rows="3" required placeholder="How can our estate assist you?"></textarea>
+                  </div>
+                  <button type="submit" class="button button--primary">Submit Estate Enquiry</button>
+                  <div id="contactFormStatus" class="form-status-msg" role="status" aria-live="polite"></div>
+                </form>
+              </div>
+
+              <div class="contact-card contact-card--map">
+                <div class="map-placeholder">
+                  <div class="map-inner-content">
+                    <span class="map-pin">📍</span>
+                    <h3>Cape Town Farm Estate</h3>
+                    <p>Stellenbosch / Helderberg Basin · Western Cape</p>
+                    <span class="gps-coords">GPS: -33.9321° S, 18.8602° E</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+          <div class="container footer__inner reveal">
+            <div class="footer__brand-col">
+              <div class="brand-crest brand-crest--light">CTF</div>
+              <p class="eyebrow eyebrow--light">Cape Town Farm</p>
+              <h2>Growing with the land. Creating for generations.</h2>
+              <p>An enterprise agricultural estate demonstration platform representing heritage viticulture, export citrus groves, and sustainable farming.</p>
+              <div class="portal-jump-links">
+                <span class="subtext">Staff & Governance Portals:</span>
+                <button type="button" class="link-btn" data-portal-target="hr">HR Recruitment Portal →</button>
+                <button type="button" class="link-btn" data-portal-target="operations">Operations Governance →</button>
+              </div>
+            </div>
+
+            <div class="footer__links">
+              <h3>Estate Navigation</h3>
+              <a href="#home">Home</a>
+              <a href="#farm">Our Farm</a>
+              <a href="#produce">What We Produce</a>
+              <a href="#wine">Wine & Cellar</a>
+              <a href="#sustainability">Sustainability Charter</a>
+              <a href="#people">Our People</a>
+              <a href="#careers">Careers & Vacancies</a>
+              <a href="#contact">Contact & Visit</a>
+            </div>
+
+            <div class="footer__links">
+              <h3>Governance & Legal</h3>
+              <a href="#careers">Recruitment Policy</a>
+              <a href="#" onclick="alert('Privacy & Data Retention: Cape Town Farm complies with POPIA regulations. Candidates may choose single-application retention or opt-in to our multi-year talent database.'); return false;">Candidate Data Retention</a>
+              <a href="#" onclick="alert('Demonstration site disclaimer: This is an interactive architectural prototype for demonstration purposes.'); return false;">Demonstration Disclaimer</a>
+              <a href="#" onclick="alert('Environmental Compliance: Certified under GlobalG.A.P., SIZA Ethical Trade, and IPW Integrated Production of Wine.'); return false;">Certifications (Illustrative)</a>
+            </div>
+
+            <div class="footer__feedback">
+              <h3>Prototype Feedback</h3>
+              <form id="feedbackForm" novalidate>
+                <input id="feedbackName" name="name" type="text" placeholder="Your Name (Optional)" />
+                <input id="feedbackEmail" name="email" type="email" placeholder="Your Email (Optional)" />
+                <textarea id="feedbackMessage" name="message" placeholder="Share prototype feedback..." required></textarea>
+                <button class="button button--small button--primary" type="submit">Submit Feedback</button>
+                <p class="form-status" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+
+          <div class="footer__bottom">
+            <div class="container">
+              <p>© 2026 Cape Town Farm Estate. All Rights Reserved. Enterprise Digital Prototype.</p>
+              <p>Designed for South African agricultural enterprise scale.</p>
+            </div>
+          </div>
+        </footer>
+
+      </div> <!-- /#publicWebsiteView -->
+
+
+      <!-- ================================================================= -->
+      <!-- INTERNAL HR RECRUITMENT PORTAL VIEW -->
+      <!-- ================================================================= -->
+      <div id="hrPortal" class="view-portal" style="display: none;">
+        <div class="portal-header-bar">
+          <div class="container portal-header-inner">
+            <div>
+              <span class="portal-badge">Human Resources & Talent Management</span>
+              <h1>Recruitment Console</h1>
+              <p class="portal-sub">Logged in as <strong>Helena van der Merwe (HR Lead)</strong> · Full Access</p>
+            </div>
+            <div class="portal-header-actions">
+              <button type="button" class="button button--secondary button--small" id="btnResetDemoData">🔄 Reset Prototype Data</button>
+              <button type="button" class="button button--primary button--small" id="btnOpenJobCreator">+ Create New Vacancy</button>
+            </div>
+          </div>
         </div>
-      </section>
+
+        <div class="container portal-content-body">
+          <!-- HIGH-LEVEL RECRUITMENT KPIS -->
+          <div class="kpi-grid" id="hrKpiGrid">
+            <!-- Rendered by js/hr.js -->
+          </div>
+
+          <!-- HR CONTROLS & FILTER BAR -->
+          <div class="hr-toolbar">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="hrSearchInput" placeholder="Search candidates by name, position, ref number..." />
+            </div>
+
+            <div class="hr-filter-selectors">
+              <select id="hrDeptFilter" class="form-input select-sm">
+                <option value="all">All Departments</option>
+                <option value="Operations">Operations</option>
+                <option value="Vineyard">Vineyard</option>
+                <option value="Citrus">Citrus</option>
+                <option value="Livestock">Livestock</option>
+                <option value="Technical & Maintenance">Technical</option>
+                <option value="Administration & Finance">Administration</option>
+                <option value="Hospitality & Cellar">Hospitality & Cellar</option>
+              </select>
+
+              <select id="hrStatusFilter" class="form-input select-sm">
+                <option value="all">All Pipeline Stages</option>
+                <option value="New Application">New Applications</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Shortlisted">Shortlisted</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+                <option value="Hired">Hired</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+
+              <select id="hrSortSelect" class="form-input select-sm">
+                <option value="newest">Sort: Newest First</option>
+                <option value="oldest">Sort: Oldest First</option>
+                <option value="name">Sort: Candidate Name</option>
+                <option value="status">Sort: Status</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 1: PIPELINE / KANBAN VIEW -->
+          <div id="hrPipelineView" class="hr-subview">
+            <div class="kanban-board" id="hrPipelineBoard">
+              <!-- Rendered by js/hr.js -->
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 2: APPLICANT TABLE VIEW -->
+          <div id="hrTableView" class="hr-subview" style="display: none;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Candidate Name</th>
+                    <th>Applied Position</th>
+                    <th>Department</th>
+                    <th>Date Applied</th>
+                    <th>Current Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="hrApplicantTableBody">
+                  <!-- Rendered by js/hr.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 3: JOB POSTINGS & GOVERNANCE VIEW -->
+          <div id="hrJobsView" class="hr-subview" style="display: none;">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Job Title</th>
+                    <th>Department</th>
+                    <th>Closing Date</th>
+                    <th>Requisition Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="hrJobsTableBody">
+                  <!-- Rendered by js/hr.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /#hrPortal -->
+
+
+      <!-- ================================================================= -->
+      <!-- OPERATIONS GOVERNANCE & APPROVAL DASHBOARD VIEW -->
+      <!-- ================================================================= -->
+      <div id="opsPortal" class="view-portal" style="display: none;">
+        <div class="portal-header-bar ops-header">
+          <div class="container portal-header-inner">
+            <div>
+              <span class="portal-badge ops">Agricultural Operations Governance</span>
+              <h1>Operations Approval Console</h1>
+              <p class="portal-sub">Logged in as <strong>Kobus Malan (Operations Director)</strong> · Requisition Authority</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container portal-content-body">
+          <!-- OPS SUMMARY KPIS -->
+          <div class="kpi-grid" id="opsKpiSummary">
+            <!-- Rendered by js/operations.js -->
+          </div>
+
+          <!-- PENDING REQUISITIONS QUEUE -->
+          <div class="ops-section-block">
+            <div class="section-title-row">
+              <h2>⏳ Requisitions Awaiting Operational Review & Sign-Off</h2>
+              <span class="subtext">Review job specifications and approve for public publishing or return with adjustments.</span>
+            </div>
+            <div class="ops-queue-list" id="opsPendingList">
+              <!-- Rendered by js/operations.js -->
+            </div>
+          </div>
+
+          <!-- HISTORICAL & ACTIVE APPROVED JOBS -->
+          <div class="ops-section-block">
+            <div class="section-title-row">
+              <h2>✓ Approved & Active Field Requisitions</h2>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Position Title</th>
+                    <th>Department</th>
+                    <th>Salary Band</th>
+                    <th>Closing Date</th>
+                    <th>Status</th>
+                    <th>Approval History</th>
+                  </tr>
+                </thead>
+                <tbody id="opsApprovedList">
+                  <!-- Rendered by js/operations.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /#opsPortal -->
+
     </main>
 
-    <footer class="footer">
-      <div class="container footer__inner reveal">
-        <div>
-          <p class="eyebrow eyebrow--light">Cape Town Farm</p>
-          <h2>Growing with the land. Creating for generations.</h2>
-          <p>Demonstration website for a premium agricultural estate concept.</p>
+
+    <!-- ================================================================= -->
+    <!-- INTERACTIVE MODALS & FULL-SCREEN OVERLAYS -->
+    <!-- ================================================================= -->
+
+    <!-- 1. JOB DETAILS MODAL -->
+    <div class="modal" id="jobDetailsModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="jobDetailsModalTitle">
+      <div class="modal__panel modal__panel--large">
+        <button class="modal__close" id="closeJobDetailsModal" aria-label="Close Job Details">×</button>
+        <div id="jobDetailsModalContent">
+          <!-- Dynamically injected by js/careers.js -->
         </div>
-        <div class="footer__links">
-          <h3>Navigate</h3>
-          <a href="#home">Home</a>
-          <a href="#farm">Our Farm</a>
-          <a href="#careers">Careers</a>
-          <a href="#contact">Contact</a>
+        <div class="modal-footer-actions">
+          <button type="button" class="button button--secondary" onclick="document.getElementById('closeJobDetailsModal').click()">Close Details</button>
+          <button type="button" class="button button--primary" id="applyFromDetailsBtn">Apply for this Position →</button>
         </div>
-        <div class="footer__social">
-          <h3>Social</h3>
-          <a href="#">Instagram</a>
-          <a href="#">Facebook</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">TikTok</a>
+      </div>
+    </div>
+
+    <!-- 2. DEDICATED FULL-SCREEN MULTI-STEP APPLICATION WIZARD -->
+    <div class="application-wizard" id="applicationWizard" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="wizard-header">
+        <div class="wizard-header-brand">
+          <div class="brand-crest brand-crest--small">CTF</div>
+          <div>
+            <h2 id="wizardJobTitle">Job Title</h2>
+            <span id="wizardJobMeta" class="wizard-meta">Department · Ref Number</span>
+          </div>
         </div>
-        <div class="footer__feedback">
-          <h3>Feedback</h3>
-          <form id="feedbackForm" novalidate>
-            <label class="sr-only" for="feedbackName">Name</label>
-            <input id="feedbackName" name="name" type="text" placeholder="Name (optional)" />
-            <label class="sr-only" for="feedbackEmail">Email</label>
-            <input id="feedbackEmail" name="email" type="email" placeholder="Email (optional)" />
-            <label class="sr-only" for="feedbackMessage">Feedback</label>
-            <textarea id="feedbackMessage" name="message" placeholder="Share your thoughts" required></textarea>
-            <button class="button button--small" type="submit">Submit</button>
-            <p class="form-status" role="status" aria-live="polite"></p>
+
+        <!-- PROGRESS STEPPER -->
+        <div class="wizard-stepper" role="progressbar" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1">
+          <div class="wizard-step active" data-step="1">
+            <span class="step-num">1</span>
+            <span class="step-label">Personal Info</span>
+          </div>
+          <div class="wizard-step-line"></div>
+          <div class="wizard-step" data-step="2">
+            <span class="step-num">2</span>
+            <span class="step-label">Role Questions</span>
+          </div>
+          <div class="wizard-step-line"></div>
+          <div class="wizard-step" data-step="3">
+            <span class="step-num">3</span>
+            <span class="step-label">Qualifications</span>
+          </div>
+          <div class="wizard-step-line"></div>
+          <div class="wizard-step" data-step="4">
+            <span class="step-num">4</span>
+            <span class="step-label">Documents</span>
+          </div>
+          <div class="wizard-step-line"></div>
+          <div class="wizard-step" data-step="5">
+            <span class="step-num">5</span>
+            <span class="step-label">Consent</span>
+          </div>
+          <div class="wizard-step-line"></div>
+          <div class="wizard-step" data-step="6">
+            <span class="step-num">6</span>
+            <span class="step-label">Review</span>
+          </div>
+        </div>
+
+        <button type="button" class="wizard-close-btn" id="closeWizardBtn" aria-label="Exit Application">✕ Exit</button>
+      </div>
+
+      <!-- WIZARD CONTENT PANELS -->
+      <div class="wizard-content-body">
+        <div class="container wizard-container">
+
+          <!-- STEP 1: PERSONAL INFORMATION -->
+          <div class="wizard-panel active" data-step="1">
+            <div class="panel-heading">
+              <h3>Step 1: Personal & Contact Information</h3>
+              <p>Please enter your legal identification and contact details. Required fields are marked with an asterisk (*).</p>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="applicantName" class="form-label">Full Legal Name *</label>
+                <input type="text" id="applicantName" class="form-input" required placeholder="e.g. Johnathan Khumalo" />
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="applicantEmail" class="form-label">Email Address *</label>
+                <input type="email" id="applicantEmail" class="form-input" required placeholder="e.g. j.khumalo@example.com" />
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="applicantPhone" class="form-label">Contact Mobile Number *</label>
+                <input type="tel" id="applicantPhone" class="form-input" required placeholder="e.g. +27 (0)82 123 4567" />
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="applicantIdNumber" class="form-label">National ID / Passport Number *</label>
+                <input type="text" id="applicantIdNumber" class="form-input" required placeholder="13-digit ID or Passport" />
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="applicantDob" class="form-label">Date of Birth *</label>
+                <input type="date" id="applicantDob" class="form-input" required />
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="applicantAddress" class="form-label">Residential Address *</label>
+                <input type="text" id="applicantAddress" class="form-input" required placeholder="Street address, suburb, city, postal code" />
+                <span class="field-error"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: ROLE-SPECIFIC QUESTIONS -->
+          <div class="wizard-panel" data-step="2">
+            <div class="panel-heading">
+              <h3>Step 2: Role-Specific Assessment</h3>
+              <p>The following questions are configured specifically for this position by the department management.</p>
+            </div>
+            <div id="wizardDynamicQuestions" class="dynamic-questions-wrapper">
+              <!-- Dynamically generated based on selectedJob.customQuestions -->
+            </div>
+          </div>
+
+          <!-- STEP 3: QUALIFICATIONS & EXPERIENCE -->
+          <div class="wizard-panel" data-step="3">
+            <div class="panel-heading">
+              <h3>Step 3: Qualifications & Work History</h3>
+              <p>Provide your education, trade training, practical skills, and recent work history.</p>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="applicantHighestEdu" class="form-label">Highest Education / Trade Qualification *</label>
+                <input type="text" id="applicantHighestEdu" class="form-input" required placeholder="e.g. National Diploma in Agriculture / Matric / Red Seal" />
+                <span class="field-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="applicantInstitution" class="form-label">Institution / College / Training Body</label>
+                <input type="text" id="applicantInstitution" class="form-input" placeholder="e.g. Elsenburg Agricultural Training Institute" />
+              </div>
+              <div class="form-group">
+                <label for="applicantGradYear" class="form-label">Year Completed</label>
+                <input type="text" id="applicantGradYear" class="form-input" placeholder="e.g. 2018" />
+              </div>
+              <div class="form-group">
+                <label for="applicantSkills" class="form-label">Key Practical Skills & Capabilities *</label>
+                <input type="text" id="applicantSkills" class="form-input" required placeholder="e.g. Tractor Operation, Pruning, Irrigation, GlobalG.A.P." />
+                <span class="field-error"></span>
+              </div>
+            </div>
+
+            <div class="section-divider">
+              <h4>Recent Relevant Employment</h4>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="applicantPrevRole" class="form-label">Most Recent Job Title</label>
+                <input type="text" id="applicantPrevRole" class="form-input" placeholder="e.g. Assistant Vineyard Worker" />
+              </div>
+              <div class="form-group">
+                <label for="applicantPrevCompany" class="form-label">Employer / Farm Name</label>
+                <input type="text" id="applicantPrevCompany" class="form-input" placeholder="e.g. Boland Terroir Farm" />
+              </div>
+              <div class="form-group">
+                <label for="applicantPrevYears" class="form-label">Duration / Period</label>
+                <input type="text" id="applicantPrevYears" class="form-input" placeholder="e.g. 2021 – 2026 (5 Years)" />
+              </div>
+              <div class="form-group">
+                <label for="applicantPrevDuties" class="form-label">Key Duties & Achievements</label>
+                <input type="text" id="applicantPrevDuties" class="form-input" placeholder="e.g. Canopy management, tractor hauling, chemical safety" />
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: DOCUMENT UPLOADS -->
+          <div class="wizard-panel" data-step="4">
+            <div class="panel-heading">
+              <h3>Step 4: Upload Application Documents</h3>
+              <p>Upload your digital dossier. CV and ID are mandatory for all applications.</p>
+            </div>
+            <div id="wizardDocDropzones" class="dropzones-container">
+              <!-- Dynamically populated dropzones by js/careers.js -->
+            </div>
+          </div>
+
+          <!-- STEP 5: PRIVACY CONSENT & RETENTION -->
+          <div class="wizard-panel" data-step="5">
+            <div class="panel-heading">
+              <h3>Step 5: Privacy Notice & Candidate Data Retention</h3>
+              <p>Cape Town Farm processes applicant personal information in strict compliance with the Protection of Personal Information Act (POPIA).</p>
+            </div>
+            <div class="consent-box">
+              <h4>Data Processing & Retention Choices</h4>
+              <p>Please indicate how you would like Cape Town Farm to manage your candidate profile upon conclusion of this recruitment requisition:</p>
+
+              <div class="radio-group" id="consentRadioGroup">
+                <label class="radio-option radio-option--card">
+                  <input type="radio" name="retentionConsent" value="agree" checked />
+                  <div>
+                    <strong>Option A: Talent Database Retention (Recommended)</strong>
+                    <p>I consent to Cape Town Farm retaining my CV, qualifications, and profile in their candidate database for consideration in matching future vacancies across the estate.</p>
+                  </div>
+                </label>
+
+                <label class="radio-option radio-option--card">
+                  <input type="radio" name="retentionConsent" value="single_only" />
+                  <div>
+                    <strong>Option B: Single-Application Retention Only</strong>
+                    <p>I request that my information and submitted files be used exclusively for this specific position and purged upon finalization of this hiring decision in accordance with company retention schedules.</p>
+                  </div>
+                </label>
+              </div>
+              <span class="field-error" id="error_consent"></span>
+            </div>
+          </div>
+
+          <!-- STEP 6: SUMMARY & REVIEW -->
+          <div class="wizard-panel" data-step="6">
+            <div class="panel-heading">
+              <h3>Step 6: Review & Final Submission</h3>
+              <p>Please review your entered details. You can click "Edit" on any section to revise information before finalizing.</p>
+            </div>
+            <div id="wizardReviewSummary" class="review-summary-container">
+              <!-- Populated by js/careers.js -->
+            </div>
+          </div>
+
+          <!-- STEP 7: CONFIRMATION & SUCCESS SCREEN -->
+          <div class="wizard-panel" data-step="7">
+            <div class="confirmation-card">
+              <div class="confirmation-icon">🎉</div>
+              <h2>Application Successfully Submitted</h2>
+              <p class="confirmation-lead">Your application has been received by the Cape Town Farm Human Resources committee.</p>
+              
+              <div class="ref-number-box">
+                <span>YOUR OFFICIAL APPLICATION REFERENCE NUMBER:</span>
+                <strong id="confirmationRefNumber">APP-2026-XXXXX</strong>
+              </div>
+
+              <div class="confirmation-notice">
+                <p>📧 A simulated confirmation email with your reference number has been dispatched to <strong id="confirmationEmailTarget">applicant@example.com</strong> for position <strong id="confirmationJobTarget">Position</strong>.</p>
+                <p><em>What happens next:</em> Our recruitment team will review your submitted credentials. If shortlisted, you will receive an invitation for an initial interview.</p>
+              </div>
+
+              <div class="confirmation-actions">
+                <button type="button" class="button button--primary" id="wizardReturnCareersBtn">Return to Careers Portal</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WIZARD FOOTER ACTIONS -->
+      <div class="wizard-footer" id="wizardActions">
+        <div class="container wizard-footer-inner">
+          <button type="button" class="button button--secondary" id="wizardPrevBtn" style="display: none;">← Previous Step</button>
+          <button type="button" class="button button--primary" id="wizardNextBtn">Next Step →</button>
+          <button type="button" class="button button--primary" id="wizardSubmitBtn" style="display: none;">Submit Application ✓</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 3. CANDIDATE DOSSIER MODAL (HR) -->
+    <div class="modal" id="candidateDossierModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="dossierApplicantTitle">
+      <div class="modal__panel modal__panel--dossier">
+        <button class="modal__close" id="closeDossierModal" aria-label="Close Candidate Dossier">×</button>
+        
+        <div class="dossier-header-bar">
+          <div>
+            <span class="dept-badge">Candidate Dossier</span>
+            <h2 id="dossierApplicantTitle">Applicant Name</h2>
+            <p id="dossierApplicantMeta" class="subtext">Position · Applied Date</p>
+          </div>
+          <div class="dossier-status-bar">
+            <label for="dossierStatusSelect"><strong>Recruitment Stage:</strong></label>
+            <select id="dossierStatusSelect" class="form-input select-sm">
+              <option value="New Application">New Application</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Shortlisted">Shortlisted</option>
+              <option value="Interview">Interview</option>
+              <option value="Offer">Offer</option>
+              <option value="Hired">Hired</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="candidateDossierContent" class="dossier-scroll-area">
+          <!-- Injected by js/hr.js -->
+        </div>
+
+        <!-- ADD INTERNAL NOTE SECTION -->
+        <div class="dossier-footer-form">
+          <form id="addInternalNoteForm" class="internal-note-form">
+            <input type="text" id="hrNoteAuthor" value="Helena van der Merwe (HR Lead)" class="hidden-field" />
+            <input type="text" id="hrNewNoteText" class="form-input" placeholder="Add private internal HR note or interview feedback..." required />
+            <button type="submit" class="button button--small button--primary">Add Note</button>
           </form>
         </div>
       </div>
-      <div class="footer__bottom">
-        <div class="container">
-          <p>© 2026 Cape Town Farm. Demonstration website.</p>
+    </div>
+
+
+    <!-- 4. SIMULATED DOCUMENT VIEWER MODAL -->
+    <div class="modal" id="docViewerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="docViewerTitle">
+      <div class="modal__panel modal__panel--docviewer">
+        <button class="modal__close" id="closeDocViewerModal" aria-label="Close Document Viewer">×</button>
+        <h3 id="docViewerTitle">Document Preview</h3>
+        <div id="docViewerFrame" class="doc-viewer-canvas">
+          <!-- Injected by js/hr.js -->
         </div>
       </div>
-    </footer>
+    </div>
 
-    <div class="modal" id="applicationModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="applicationTitle">
-      <div class="modal__panel">
-        <button class="modal__close" id="closeModal" aria-label="Close application form">×</button>
-        <h2 id="applicationTitle">Apply for this role</h2>
-        <p class="modal__hint">This is a front-end demonstration. Your details will only be prepared locally in the browser.</p>
-        <form id="applicationForm" novalidate>
-          <label>
-            Full Name
-            <input type="text" name="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required />
-          </label>
-          <label>
-            Phone Number
-            <input type="tel" name="phone" required />
-          </label>
-          <label>
-            Position
-            <input type="text" name="position" id="positionField" readonly />
-          </label>
-          <label>
-            Short Message
-            <textarea name="message" rows="4" required></textarea>
-          </label>
-          <label class="file-field">
-            <span>Upload CV</span>
-            <input type="file" name="cv" id="cvInput" accept=".pdf,.doc,.docx" required />
-            <span class="file-name" id="fileName">No file selected</span>
-          </label>
-          <button class="button button--primary" type="submit">Submit Application</button>
-          <p class="form-status" id="applicationStatus" role="status" aria-live="polite"></p>
+
+    <!-- 5. JOB CREATOR MODAL (HR) -->
+    <div class="modal" id="jobCreatorModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="jobCreatorTitle">
+      <div class="modal__panel modal__panel--large">
+        <button class="modal__close" id="closeJobCreatorModal" aria-label="Close Job Creator">×</button>
+        <h2 id="jobCreatorTitle">Create New Agricultural Vacancy</h2>
+        <p class="subtext">Configure position details, custom assessment questions, and submit for Operations Director approval.</p>
+
+        <form id="jobCreatorForm" class="job-creator-form">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="newJobTitle" class="form-label">Job Title *</label>
+              <input type="text" id="newJobTitle" class="form-input" required placeholder="e.g. Assistant Winemaker / Packhouse Supervisor" />
+            </div>
+            <div class="form-group">
+              <label for="newJobDept" class="form-label">Department *</label>
+              <select id="newJobDept" class="form-input" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="newJobLocation" class="form-label">Location *</label>
+              <input type="text" id="newJobLocation" class="form-input" required value="Stellenbosch / Cape Town Estate" />
+            </div>
+            <div class="form-group">
+              <label for="newJobType" class="form-label">Employment Type *</label>
+              <select id="newJobType" class="form-input" required>
+                <option value="Full-time">Full-time</option>
+                <option value="Seasonal">Seasonal</option>
+                <option value="Contract">Contract</option>
+                <option value="Apprenticeship">Apprenticeship / Intern</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="newJobSalary" class="form-label">Proposed Salary / Compensation</label>
+              <input type="text" id="newJobSalary" class="form-input" placeholder="e.g. ZAR 25,000 – 35,000 / month" />
+            </div>
+            <div class="form-group">
+              <label for="newJobClosingDate" class="form-label">Application Deadline *</label>
+              <input type="date" id="newJobClosingDate" class="form-input" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="newJobDesc" class="form-label">Role Overview / Description *</label>
+            <textarea id="newJobDesc" class="form-input" rows="3" required placeholder="Summarize the core purpose of this position on the estate..."></textarea>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="newJobResponsibilities" class="form-label">Key Responsibilities (One per line)</label>
+              <textarea id="newJobResponsibilities" class="form-input" rows="4" placeholder="Oversee daily orchard operations&#10;Manage harvest team logistics&#10;Maintain strict safety compliance"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="newJobRequirements" class="form-label">Requirements & Qualifications (One per line)</label>
+              <textarea id="newJobRequirements" class="form-input" rows="4" placeholder="Agricultural diploma or relevant experience&#10;Valid driver's license&#10;Demonstrated leadership"></textarea>
+            </div>
+          </div>
+
+          <!-- DYNAMIC CUSTOM QUESTION BUILDER -->
+          <div class="custom-questions-builder-box">
+            <div class="builder-title-row">
+              <h4>Configurable Role-Specific Questions</h4>
+              <button type="button" class="button button--small button--secondary" id="btnAddCustomQuestion">+ Add Custom Question</button>
+            </div>
+            <div id="jobCreatorQuestionsList" class="questions-builder-list">
+              <!-- Dynamically appended items -->
+            </div>
+          </div>
+
+          <div class="modal-footer-actions">
+            <button type="submit" class="button button--secondary" data-action="draft">Save as Draft</button>
+            <button type="submit" class="button button--primary" data-action="submit">Submit for Operations Approval →</button>
+          </div>
         </form>
       </div>
     </div>
 
+
+    <!-- 6. MANUAL JOB CLOSURE MODAL (HR) -->
+    <div class="modal" id="jobClosureModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="jobClosureTargetTitle">
+      <div class="modal__panel">
+        <button class="modal__close" id="closeClosureModal" aria-label="Close Dialog">×</button>
+        <h3 id="jobClosureTargetTitle">Close Job Vacancy</h3>
+        <p class="subtext">Please specify a mandatory reason for closing this position prior to its deadline.</p>
+
+        <form id="jobClosureForm">
+          <div class="form-group">
+            <label for="jobClosureReasonSelect" class="form-label">Closure Reason *</label>
+            <select id="jobClosureReasonSelect" class="form-input" required>
+              <option value="Position Filled">Position Filled</option>
+              <option value="Sufficient Applications Received">Sufficient Applications Received</option>
+              <option value="Hiring Requirement Changed">Hiring Requirement Changed / Reprioritized</option>
+              <option value="Budgetary Adjustment">Budgetary / Organizational Adjustment</option>
+              <option value="Other">Other Operational Reason</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="jobClosureNotes" class="form-label">Optional Notes</label>
+            <textarea id="jobClosureNotes" class="form-input" rows="3" placeholder="Additional context for internal record..."></textarea>
+          </div>
+          <div class="modal-footer-actions">
+            <button type="button" class="button button--secondary" onclick="document.getElementById('closeClosureModal').click()">Cancel</button>
+            <button type="submit" class="button button--primary">Confirm Job Closure</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- 7. OPERATIONS REJECTION REASON MODAL -->
+    <div class="modal" id="opsRejectionModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="opsRejectionJobTitle">
+      <div class="modal__panel">
+        <button class="modal__close" id="closeOpsRejectionModal" aria-label="Close Dialog">×</button>
+        <h3 id="opsRejectionJobTitle">Return Requisition to HR</h3>
+        <p class="subtext">Operations approval requires specific feedback for HR revisions before this vacancy can be approved.</p>
+
+        <form id="opsRejectionForm">
+          <div class="form-group">
+            <label for="opsRejectionReasonInput" class="form-label">Mandatory Rejection / Revision Feedback *</label>
+            <textarea id="opsRejectionReasonInput" class="form-input" rows="4" required placeholder="E.g. Proposed salary exceeds current Q3 operational budget by 15%; please adjust or specify required machinery certs..."></textarea>
+          </div>
+          <div class="modal-footer-actions">
+            <button type="button" class="button button--secondary" onclick="document.getElementById('closeOpsRejectionModal').click()">Cancel</button>
+            <button type="submit" class="button button--primary">Submit Feedback & Return Requisition</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- 8. SIMULATED TRANSACTIONAL EMAIL INBOX DRAWER -->
+    <div class="email-drawer-overlay" id="emailDrawerBackdrop"></div>
+    <aside class="email-center-drawer" id="emailCenterDrawer" aria-hidden="true">
+      <div class="email-drawer-header">
+        <div>
+          <h3>📨 Simulated Email Dispatcher</h3>
+          <span class="subtext">Inspect outgoing automated transactional messages in real-time</span>
+        </div>
+        <button type="button" class="email-drawer-close" id="closeEmailDrawer">✕</button>
+      </div>
+      
+      <div class="email-drawer-layout">
+        <div class="email-list-column" id="emailListContainer">
+          <!-- Populated by js/main.js -->
+        </div>
+        <div class="email-detail-column" id="emailDetailContainer">
+          <p class="text-muted text-center py-6">Select an email to view full template.</p>
+        </div>
+      </div>
+    </aside>
+
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- BACK TO TOP BUTTON -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
 
-    <script src="js/main.js"></script>
+    <!-- MAIN JAVASCRIPT ENTRYPOINT (ES MODULE) -->
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
