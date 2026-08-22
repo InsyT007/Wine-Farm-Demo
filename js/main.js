@@ -1,259 +1,380 @@
-const sidebar = document.querySelector('.sidebar');
-const sidebarToggle = document.getElementById('sidebarToggle');
-const sidebarOverlay = document.getElementById('sidebarOverlay');
-const navLinks = document.querySelectorAll('.nav-link');
-const sections = document.querySelectorAll('main section[id]');
-const revealItems = document.querySelectorAll('.reveal');
-const backToTop = document.getElementById('backToTop');
-const applicationModal = document.getElementById('applicationModal');
-const closeModal = document.getElementById('closeModal');
-const applyButtons = document.querySelectorAll('.apply-btn');
-const positionField = document.getElementById('positionField');
-const cvInput = document.getElementById('cvInput');
-const fileName = document.getElementById('fileName');
-const applicationForm = document.getElementById('applicationForm');
-const applicationStatus = document.getElementById('applicationStatus');
-const feedbackForm = document.getElementById('feedbackForm');
-const filterButtons = document.querySelectorAll('.filter-chip');
-const vacancyCards = document.querySelectorAll('.vacancy-card');
+/**
+ * Cape Town Farm — Master Application & Experience Orchestrator
+ * Integrates global navigation, portal switcher, simulated email center,
+ * toast notifications, public page interactions, and smooth animations.
+ */
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const scrollDuration = 1250;
+import { farmState } from './state.js';
+import './careers.js';
+import './hr.js';
+import './operations.js';
 
-const setSidebarState = (isOpen) => {
-  sidebar?.classList.toggle('is-collapsed', !isOpen);
-  sidebarToggle?.setAttribute('aria-expanded', String(isOpen));
-  document.body.classList.toggle('sidebar-open', window.innerWidth <= 900 && isOpen);
-  sidebarOverlay?.setAttribute('aria-hidden', String(!isOpen));
-};
+class AppOrchestrator {
+  constructor() {
+    this.currentPortal = 'public'; // 'public' | 'hr' | 'operations'
+    this.initElements();
+    this.bindEvents();
+    this.initIntersectionObservers();
+    this.updateEmailBadge();
 
-const closeSidebar = () => setSidebarState(false);
-const openSidebar = () => setSidebarState(true);
-
-setSidebarState(window.innerWidth > 900);
-
-const scrollToTarget = (targetY, duration = scrollDuration) => {
-  const startY = window.scrollY;
-  const distance = targetY - startY;
-  const startTime = performance.now();
-
-  if (prefersReducedMotion || duration <= 0) {
-    window.scrollTo(0, targetY);
-    return;
+    // Listen to state changes
+    farmState.subscribe(() => {
+      this.updateEmailBadge();
+      this.renderEmailInbox();
+    });
   }
 
-  const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  initElements() {
+    this.sidebar = document.getElementById('sidebar');
+    this.sidebarToggle = document.getElementById('sidebarToggle');
+    this.sidebarOverlay = document.getElementById('sidebarOverlay');
+    this.backToTop = document.getElementById('backToTop');
+    this.publicView = document.getElementById('publicWebsiteView');
+    this.hrPortalView = document.getElementById('hrPortal');
+    this.opsPortalView = document.getElementById('opsPortal');
+    this.emailDrawer = document.getElementById('emailCenterDrawer');
+    this.emailBadge = document.getElementById('simulatedEmailBadge');
+    this.toastContainer = document.getElementById('toastContainer');
+  }
 
-  const animate = (currentTime) => {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const easedProgress = easeInOutCubic(progress);
-    window.scrollTo(0, startY + distance * easedProgress);
+  bindEvents() {
+    // Mobile Sidebar Drawer Toggle
+    this.sidebarToggle?.addEventListener('click', () => {
+      const isCollapsed = this.sidebar?.classList.contains('is-collapsed');
+      this.setSidebarState(isCollapsed);
+    });
 
-    if (progress < 1) {
-      requestAnimationFrame(animate);
+    this.sidebarOverlay?.addEventListener('click', () => this.setSidebarState(false));
+
+    // Handle Window Resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        this.sidebarOverlay?.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('sidebar-open');
+      } else {
+        this.sidebarOverlay?.setAttribute('aria-hidden', String(this.sidebar?.classList.contains('is-collapsed')));
+        document.body.classList.toggle('sidebar-open', !this.sidebar?.classList.contains('is-collapsed'));
+      }
+    });
+
+    // Initial sidebar state on load
+    this.setSidebarState(window.innerWidth > 900);
+
+    // Global Portal Switchers (Sidebar & Footer Links)
+    document.querySelectorAll('[data-portal-target]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetPortal = el.dataset.portalTarget;
+        this.switchPortal(targetPortal);
+        if (window.innerWidth <= 900) {
+          this.setSidebarState(false);
+        }
+      });
+    });
+
+    // Public Section Navigation
+    document.querySelectorAll('.sidebar__nav .nav-link, a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
+
+        // If we are currently in HR or Operations portal, switch back to public first
+        if (this.currentPortal !== 'public' && href.startsWith('#')) {
+          this.switchPortal('public');
+          setTimeout(() => this.scrollToSection(href), 100);
+        } else if (href.startsWith('#')) {
+          e.preventDefault();
+          this.scrollToSection(href);
+        }
+
+        if (window.innerWidth <= 900) {
+          this.setSidebarState(false);
+        }
+      });
+    });
+
+    // Back to top button
+    window.addEventListener('scroll', () => {
+      this.backToTop?.classList.toggle('is-visible', window.scrollY > 500);
+    });
+
+    this.backToTop?.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Simulated Email Center Toggle
+    document.querySelectorAll('.btn-open-email-center').forEach((btn) => {
+      btn.addEventListener('click', () => this.openEmailDrawer());
+    });
+
+    document.getElementById('closeEmailDrawer')?.addEventListener('click', () => this.closeEmailDrawer());
+    document.getElementById('emailDrawerBackdrop')?.addEventListener('click', () => this.closeEmailDrawer());
+
+    // Listen for custom simulated email event to trigger toast
+    window.addEventListener('ctf-simulated-email', (e) => {
+      const email = e.detail;
+      this.showToast({
+        title: `📧 ${email.badge}`,
+        message: email.subject,
+        actionText: 'View Email',
+        onAction: () => {
+          this.openEmailDrawer();
+          this.inspectEmail(email.id);
+        }
+      });
+    });
+
+    // Contact Form submission
+    const contactForm = document.getElementById('estateContactForm');
+    contactForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const statusEl = document.getElementById('contactFormStatus');
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Transmitting Enquiry...';
+      }
+
+      setTimeout(() => {
+        if (statusEl) {
+          statusEl.innerHTML = `
+            <div class="form-status-alert success">
+              <strong>✓ Enquiry Received:</strong> Thank you for reaching out to Cape Town Farm. Our estate team has logged your correspondence and will respond shortly.
+            </div>
+          `;
+        }
+        contactForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Submit Estate Enquiry';
+        }
+      }, 750);
+    });
+
+    // Footer Feedback Form
+    const feedbackForm = document.getElementById('feedbackForm');
+    feedbackForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const status = feedbackForm.querySelector('.form-status');
+      if (status) {
+        status.textContent = 'Thank you for your feedback. Logged in demonstration session.';
+      }
+      feedbackForm.reset();
+    });
+  }
+
+  setSidebarState(isOpen) {
+    this.sidebar?.classList.toggle('is-collapsed', !isOpen);
+    this.sidebarToggle?.setAttribute('aria-expanded', String(isOpen));
+    document.body.classList.toggle('sidebar-open', window.innerWidth <= 900 && isOpen);
+    this.sidebarOverlay?.setAttribute('aria-hidden', String(!isOpen));
+  }
+
+  switchPortal(portalName) {
+    this.currentPortal = portalName;
+
+    // Toggle view containers
+    if (this.publicView) this.publicView.style.display = portalName === 'public' ? 'block' : 'none';
+    if (this.hrPortalView) this.hrPortalView.style.display = portalName === 'hr' ? 'block' : 'none';
+    if (this.opsPortalView) this.opsPortalView.style.display = portalName === 'operations' ? 'block' : 'none';
+
+    // Update portal switcher buttons in sidebar
+    document.querySelectorAll('[data-portal-target]').forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.portalTarget === portalName);
+    });
+
+    // Update sidebar navigation mode
+    const publicNav = document.getElementById('publicNavGroup');
+    const hrNav = document.getElementById('hrNavGroup');
+    const opsNav = document.getElementById('opsNavGroup');
+
+    if (publicNav) publicNav.style.display = portalName === 'public' ? 'grid' : 'none';
+    if (hrNav) hrNav.style.display = portalName === 'hr' ? 'grid' : 'none';
+    if (opsNav) opsNav.style.display = portalName === 'operations' ? 'grid' : 'none';
+
+    // Scroll to top of view
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  scrollToSection(hash) {
+    const target = document.querySelector(hash);
+    if (!target) return;
+    const targetY = target.getBoundingClientRect().top + window.scrollY - 30;
+    window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+
+    // Update active nav link
+    document.querySelectorAll('.sidebar__nav .nav-link').forEach((link) => {
+      link.classList.toggle('active', link.getAttribute('href') === hash);
+    });
+  }
+
+  initIntersectionObservers() {
+    // Reveal animations
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
+
+    // Section scroll spy for sidebar nav
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        if (this.currentPortal !== 'public') return;
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            document.querySelectorAll('.sidebar__nav .nav-link').forEach((link) => {
+              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    document.querySelectorAll('main section[id]').forEach((sec) => sectionObserver.observe(sec));
+  }
+
+  // --- SIMULATED EMAIL CENTER ---
+
+  updateEmailBadge() {
+    const emails = farmState.getEmails();
+    if (this.emailBadge) {
+      this.emailBadge.textContent = emails.length;
+      this.emailBadge.style.display = emails.length > 0 ? 'inline-flex' : 'none';
     }
-  };
-
-  requestAnimationFrame(animate);
-};
-
-const handleAnchorNavigation = (event, link) => {
-  const targetId = link.getAttribute('href');
-  if (!targetId || targetId.charAt(0) !== '#') {
-    return;
   }
 
-  const targetElement = document.querySelector(targetId);
-  if (!targetElement) {
-    return;
+  openEmailDrawer() {
+    this.renderEmailInbox();
+    this.emailDrawer?.classList.add('is-open');
+    this.emailDrawer?.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
   }
 
-  event.preventDefault();
-  const targetY = targetElement.getBoundingClientRect().top + window.scrollY - 24;
-  scrollToTarget(Math.max(targetY, 0));
-
-  if (window.innerWidth <= 900) {
-    closeSidebar();
+  closeEmailDrawer() {
+    this.emailDrawer?.classList.remove('is-open');
+    this.emailDrawer?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
   }
-};
 
-if (sidebarToggle) {
-  sidebarToggle.addEventListener('click', () => {
-    const isOpen = !sidebar?.classList.contains('is-collapsed');
-    setSidebarState(!isOpen);
-  });
+  renderEmailInbox() {
+    const listContainer = document.getElementById('emailListContainer');
+    const detailContainer = document.getElementById('emailDetailContainer');
+    if (!listContainer) return;
+
+    const emails = farmState.getEmails();
+
+    if (emails.length === 0) {
+      listContainer.innerHTML = `
+        <div class="empty-state-card py-6">
+          <p class="text-muted">No simulated emails dispatched yet.</p>
+        </div>
+      `;
+      if (detailContainer) detailContainer.innerHTML = '<p class="text-muted text-center py-6">Select an email to view full template preview.</p>';
+      return;
+    }
+
+    listContainer.innerHTML = emails
+      .map(
+        (email, idx) => `
+        <div class="email-inbox-item ${idx === 0 ? 'active' : ''}" data-id="${email.id}">
+          <div class="email-item-header">
+            <span class="email-badge">${email.badge}</span>
+            <span class="email-date">${email.timestamp}</span>
+          </div>
+          <h4 class="email-subject">${email.subject}</h4>
+          <p class="email-preview">${email.preview}</p>
+          <span class="email-recipient">To: <strong>${email.to}</strong></span>
+        </div>
+      `
+      )
+      .join('');
+
+    // Attach click to inspect
+    listContainer.querySelectorAll('.email-inbox-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        listContainer.querySelectorAll('.email-inbox-item').forEach((i) => i.classList.remove('active'));
+        item.classList.add('active');
+        this.inspectEmail(item.dataset.id);
+      });
+    });
+
+    // Default inspect first email
+    if (emails.length > 0) {
+      this.inspectEmail(emails[0].id);
+    }
+  }
+
+  inspectEmail(id) {
+    const detailContainer = document.getElementById('emailDetailContainer');
+    if (!detailContainer) return;
+
+    const email = farmState.getEmails().find((e) => e.id === id);
+    if (!email) return;
+
+    detailContainer.innerHTML = `
+      <div class="email-detail-card">
+        <div class="email-detail-meta">
+          <div class="meta-row"><strong>From:</strong> <span>${email.from}</span></div>
+          <div class="meta-row"><strong>To:</strong> <span>${email.to}</span></div>
+          <div class="meta-row"><strong>Subject:</strong> <span>${email.subject}</span></div>
+          <div class="meta-row"><strong>Timestamp:</strong> <span>${email.timestamp}</span></div>
+          <div class="meta-row"><strong>Type:</strong> <span class="email-badge">${email.badge}</span></div>
+        </div>
+        <div class="email-detail-body">
+          ${email.bodyHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  // --- TOAST NOTIFICATIONS ---
+
+  showToast({ title, message, actionText, onAction }) {
+    if (!this.toastContainer) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'toast-alert';
+    toast.innerHTML = `
+      <div class="toast-content">
+        <strong class="toast-title">${title}</strong>
+        <p class="toast-msg">${message}</p>
+      </div>
+      ${actionText ? `<button type="button" class="btn-toast-action">${actionText}</button>` : ''}
+      <button type="button" class="btn-toast-close">✕</button>
+    `;
+
+    if (actionText && onAction) {
+      toast.querySelector('.btn-toast-action')?.addEventListener('click', () => {
+        onAction();
+        toast.remove();
+      });
+    }
+
+    toast.querySelector('.btn-toast-close')?.addEventListener('click', () => toast.remove());
+
+    this.toastContainer.appendChild(toast);
+
+    // Auto dismiss after 6 seconds
+    setTimeout(() => {
+      toast.classList.add('fade-out');
+      setTimeout(() => toast.remove(), 400);
+    }, 6000);
+  }
 }
 
-sidebarOverlay?.addEventListener('click', closeSidebar);
-
-navLinks.forEach((link) => {
-  link.addEventListener('click', (event) => handleAnchorNavigation(event, link));
-});
-
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  if (!link.classList.contains('nav-link')) {
-    link.addEventListener('click', (event) => handleAnchorNavigation(event, link));
-  }
-});
-
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 900) {
-    sidebarOverlay?.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('sidebar-open');
-  } else {
-    sidebarOverlay?.setAttribute('aria-hidden', String(sidebar?.classList.contains('is-collapsed')));
-    document.body.classList.toggle('sidebar-open', window.innerWidth <= 900 && !sidebar?.classList.contains('is-collapsed'));
-  }
-});
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-
-revealItems.forEach((item) => revealObserver.observe(item));
-
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach((link) => {
-          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-        });
-      }
-    });
-  },
-  { threshold: 0.35 }
-);
-
-sections.forEach((section) => sectionObserver.observe(section));
-
-window.addEventListener('scroll', () => {
-  backToTop.classList.toggle('is-visible', window.scrollY > 500);
-});
-
-backToTop?.addEventListener('click', (event) => {
-  event.preventDefault();
-  scrollToTarget(0);
-});
-
-applyButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const position = button.dataset.position;
-    positionField.value = position;
-    applicationModal.classList.add('is-open');
-    applicationModal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    applicationStatus.textContent = '';
-  });
-});
-
-const closeModalHandler = () => {
-  applicationModal.classList.remove('is-open');
-  applicationModal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-  applicationForm.reset();
-  fileName.textContent = 'No file selected';
-  applicationStatus.textContent = '';
-};
-
-closeModal?.addEventListener('click', closeModalHandler);
-applicationModal?.addEventListener('click', (event) => {
-  if (event.target === applicationModal) {
-    closeModalHandler();
-  }
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && applicationModal.classList.contains('is-open')) {
-    closeModalHandler();
-  }
-});
-
-cvInput?.addEventListener('change', () => {
-  const file = cvInput.files?.[0];
-  if (!file) {
-    fileName.textContent = 'No file selected';
-    return;
-  }
-  const allowedTypes = [
-    'application/pdf',
-    'application/msword',
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-  ];
-  const allowedExtensions = ['.pdf', '.doc', '.docx'];
-  const extension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-  const sizeOk = file.size <= 5 * 1024 * 1024;
-  const typeOk = allowedTypes.includes(file.type) || allowedExtensions.includes(extension);
-
-  if (!typeOk) {
-    fileName.textContent = 'Please upload a PDF or Word document.';
-    cvInput.value = '';
-    return;
-  }
-
-  if (!sizeOk) {
-    fileName.textContent = 'File must be 5MB or smaller.';
-    cvInput.value = '';
-    return;
-  }
-
-  fileName.textContent = file.name;
-});
-
-applicationForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const formData = new FormData(applicationForm);
-  const name = String(formData.get('name') || '').trim();
-  const email = String(formData.get('email') || '').trim();
-  const phone = String(formData.get('phone') || '').trim();
-  const message = String(formData.get('message') || '').trim();
-  const cv = cvInput.files?.[0];
-
-  if (!name || !email || !phone || !message || !cv) {
-    applicationStatus.textContent = 'Please complete every field before submitting the demo application.';
-    return;
-  }
-
-  const validEmail = /.+@.+\..+/i.test(email);
-  if (!validEmail) {
-    applicationStatus.textContent = 'Please enter a valid email address.';
-    return;
-  }
-
-  applicationStatus.textContent = 'Application prepared successfully. In a production environment, your CV would now be securely submitted to the Cape Town Farm recruitment team.';
-  setTimeout(closeModalHandler, 1800);
-});
-
-feedbackForm?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const message = feedbackForm.message.value.trim();
-  const status = feedbackForm.querySelector('.form-status');
-  if (!message) {
-    status.textContent = 'Please share a short note before submitting your demo feedback.';
-    return;
-  }
-  status.textContent = 'Thank you. This demo feedback has been prepared locally and is not sent to a real team.';
-  feedbackForm.reset();
-});
-
-filterButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    filterButtons.forEach((chip) => chip.classList.remove('active'));
-    button.classList.add('active');
-    const filter = button.dataset.filter;
-    vacancyCards.forEach((card) => {
-      const matches = filter === 'all' || card.dataset.category === filter;
-      card.style.display = matches ? 'block' : 'none';
-    });
-  });
+// Instantiate master app
+document.addEventListener('DOMContentLoaded', () => {
+  window.farmApp = new AppOrchestrator();
 });
